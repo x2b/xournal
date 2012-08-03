@@ -16,7 +16,7 @@ PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 
-AC_CHECK_LIB([m], [hypot], [], [ AC_MSG_ERROR(['Could not find required library']) ])
+AC_CHECK_LIB([m], [hypot])
 
 dnl detect Win32 environment...
 AC_CANONICAL_HOST
