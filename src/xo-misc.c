@@ -1537,13 +1537,8 @@ void update_page_stuff(void)
   int i;
   GList *pglist;
   GtkSpinButton *spin;
-  GdkScreen *screen;
-  int screen_height;
   struct Page *pg;
   double vertpos, maxwidth;
-
-  screen = gdk_screen_get_default();
-  screen_height = (gdk_screen_get_height(screen)) / 2;
 
   // move the page groups to their rightful locations or hide them
   if (ui.view_continuous) {
@@ -1561,7 +1556,7 @@ void update_page_stuff(void)
       if (pg->width > maxwidth) maxwidth = pg->width;
     }
     vertpos -= VIEW_CONTINUOUS_SKIP;
-    gnome_canvas_set_scroll_region(canvas, 0, -screen_height, maxwidth, vertpos + screen_height);
+    gnome_canvas_set_scroll_region(canvas, 0, 0, maxwidth, vertpos);
   } else {
     for (pglist = journal.pages; pglist!=NULL; pglist = pglist->next) {
       pg = (struct Page *)pglist->data;
@@ -1574,7 +1569,7 @@ void update_page_stuff(void)
         if (pg->group!=NULL) gnome_canvas_item_hide(GNOME_CANVAS_ITEM(pg->group));
       }
     }
-    gnome_canvas_set_scroll_region(canvas, 0, -screen_height, ui.cur_page->width, ui.cur_page->height + screen_height);
+    gnome_canvas_set_scroll_region(canvas, 0, 0, ui.cur_page->width, ui.cur_page->height);
   }
 
   // update the page / layer info at bottom of screen
